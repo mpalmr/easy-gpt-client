@@ -6,6 +6,7 @@ import Label from './label';
 interface Props extends FormControlProps {
   name: string;
   label?: string;
+  type?: 'text' | 'email' | 'password';
   disabled?: boolean;
   textArea?: boolean;
 }
@@ -16,6 +17,7 @@ const TextField: FC<Props> = function TextField({
   label,
   disabled,
   textArea,
+  ...props
 }) {
   const [field, { touched, error }] = useField<string>(name);
 
@@ -24,6 +26,7 @@ const TextField: FC<Props> = function TextField({
       {label && <Label>{label}</Label>}
 
       <Form.Control
+        {...props}
         {...field}
         as={textArea ? 'textarea' : undefined}
         disabled={!!disabled}

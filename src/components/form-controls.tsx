@@ -12,15 +12,16 @@ const Wrapper = styled(Row)`
 
 interface Props {
   children?: ReactNode;
+  disabled?: boolean;
   submitText?: string;
 }
 
-const FormControls: FC<Props> = function FormControls({ children, submitText }) {
+const FormControls: FC<Props> = function FormControls({ children, disabled, submitText }) {
   return (
     <Wrapper>
       <Col xs={12}>
         {children}
-        <Button type="submit" variant="success">
+        <Button type="submit" variant="success" disabled={disabled}>
           {submitText || 'Submit'}
         </Button>
       </Col>

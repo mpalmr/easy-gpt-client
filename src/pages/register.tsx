@@ -30,10 +30,10 @@ const RegisterPage: FC = function RegisterPage() {
   const { user } = useCurrentUser();
 
   useEffect(() => {
-    if (!user) navigate('/');
+    if (user) navigate('/');
   }, []);
 
-  async function handleSubmit(values: FormValues) {
+  async function handleSubmit({ confirmPassword, ...values }: FormValues) {
     await apiClient.post('/users', values)
       .then(() => {
         navigate('/login');
@@ -96,7 +96,7 @@ const RegisterPage: FC = function RegisterPage() {
               </Col>
             </Row>
 
-            <FormControls submitText="Register" />
+            <FormControls disabled={isSubmitting} submitText="Register" />
           </Form>
         )}
       </Formik>
