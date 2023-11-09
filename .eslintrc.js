@@ -21,8 +21,10 @@ module.exports = {
       },
       rules: {
         'no-console': 0,
+        'consistent-return': 0,
         'react/jsx-props-no-spreading': 0,
         'react/require-default-props': 0,
+        'react/jsx-no-bind': 0,
       },
     },
     {
