@@ -67,7 +67,6 @@ export const CurrentUserProvider: FC<Props> = function CurrentUserProvider({ chi
       .catch((ex) => {
         console.error(ex);
         toast.error('Logout unsuccessful.');
-        return Promise.reject(ex);
       });
   }
 

@@ -20,7 +20,7 @@ const Pages: FC = function Pages() {
 
       <Route path="/conversations" element={<ConversationsPage />} />
       <Route path="/conversations/create" element={<CreateConversationPage />} />
-      <Route path="/conversation/:conversationId" element={<ConverastionDetailsPage />} />
+      <Route path="/conversations/:conversationId" element={<ConverastionDetailsPage />} />
 
       <Route path="*" element={<NotFoundPage />} />
     </Routes>

@@ -1,11 +1,5 @@
 import React, { FC } from 'react';
-import { Link } from 'react-router-dom';
-import {
-  Button,
-  Container,
-  Row,
-  Col,
-} from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import apiClient from '../../api-client';
@@ -22,6 +16,7 @@ interface FormValues {
 }
 
 const validationSchema = Yup.object().shape({
+  label: Yup.string().trim().required(),
   temperature: Yup.number().positive().default(DEFAULT_TEMPERATURE),
   message: Yup.string().trim().required(),
 })
