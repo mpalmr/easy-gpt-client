@@ -13,14 +13,14 @@ interface FormValues {
   email: string;
   password: string;
   confirmPassword: string;
-  openaiApiKey: string;
 }
 
+const emailValidation = Yup.string().trim().email().required();
+
 const validationSchema = Yup.object().shape({
-  email: Yup.string().trim().email().required(),
+  email: emailValidation,
   password: Yup.string().min(6).required(),
   confirmPassword: Yup.string().oneOf([Yup.ref('password')], 'Passwords must match'),
-  openaiApiKey: Yup.string().trim().required(),
 })
   .required();
 
@@ -52,7 +52,6 @@ const RegisterPage: FC = function RegisterPage() {
           email: '',
           password: '',
           confirmPassword: '',
-          openaiApiKey: '',
         }}
         validationSchema={validationSchema}
         onSubmit={(values) => handleSubmit(values)}
@@ -87,12 +86,6 @@ const RegisterPage: FC = function RegisterPage() {
                   type="password"
                   disabled={isSubmitting}
                 />
-              </Col>
-            </Row>
-
-            <Row>
-              <Col xs={12}>
-                <TextField name="openaiApiKey" label="OpenAI API Key" disabled={isSubmitting} />
               </Col>
             </Row>
 

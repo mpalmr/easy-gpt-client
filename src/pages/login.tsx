@@ -23,7 +23,10 @@ const LoginPage: FC = function LoginPage() {
   const { user, login } = useCurrentUser();
 
   async function handleSubmit(values: FormValues) {
-    await login(values.email, values.password);
+    await login(values.email, values.password)
+      .then(() => {
+        navigate('/');
+      });
   }
 
   useEffect(() => {
@@ -52,9 +55,7 @@ const LoginPage: FC = function LoginPage() {
                   disabled={isSubmitting}
                 />
               </Col>
-            </Row>
 
-            <Row>
               <Col xs={12} md={6}>
                 <TextField
                   name="password"

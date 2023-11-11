@@ -11,7 +11,7 @@ export default function useAfterEffect(effect: EffectCallback, deps: DependencyL
   useEffect(() => {
     const destructor = initialRender.current ? () => {} : effect();
     if (initialRender.current) initialRender.current = false;
-    if (typeof destructor === 'function') return destructor();
-    return undefined;
+    if (typeof destructor === 'function') return destructor;
+    return () => {};
   }, deps);
 }

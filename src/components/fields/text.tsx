@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { ChangeEvent, ChangeEventHandler, FC } from 'react';
 import { useField } from 'formik';
 import { Form, FormControlProps } from 'react-bootstrap';
 import Label from './label';
@@ -9,6 +9,7 @@ interface Props extends FormControlProps {
   type?: 'text' | 'email' | 'password';
   disabled?: boolean;
   textArea?: boolean;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
 }
 
 const TextField: FC<Props> = function TextField({
@@ -17,9 +18,15 @@ const TextField: FC<Props> = function TextField({
   label,
   disabled,
   textArea,
+  onChange,
   ...props
 }) {
   const [field, { touched, error }] = useField<string>(name);
+
+  function handleChange(event: ChangeEvent<HTMLInputElement>) {
+    field.onChange(event);
+    if (onChange) onChange(event);
+  }
 
   return (
     <Form.Group className={className}>
@@ -30,6 +37,7 @@ const TextField: FC<Props> = function TextField({
         {...field}
         as={textArea ? 'textarea' : undefined}
         disabled={!!disabled}
+        onChange={handleChange}
       />
 
       {touched && error && (
