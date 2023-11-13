@@ -3,7 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { Row, Col, Container } from 'react-bootstrap';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
+import type { AxiosError } from 'axios';
 import useCurrentUser from '../providers/current-user';
+import useToast from '../providers/toast';
 import { TextField } from '../components/fields';
 import FormControls from '../components/form-controls';
 
@@ -19,6 +21,7 @@ const validationSchema = Yup.object().shape({
   .required();
 
 const LoginPage: FC = function LoginPage() {
+  const toast = useToast();
   const navigate = useNavigate();
   const { user, login } = useCurrentUser();
 
@@ -26,6 +29,12 @@ const LoginPage: FC = function LoginPage() {
     await login(values.email, values.password)
       .then(() => {
         navigate('/');
+      })
+      .catch((ex: AxiosError) => {
+        console.error(ex);
+        toast.error(ex?.response?.status === 401
+          ? 'Invalid credentials.'
+          : 'Unknown error when authenticating.');
       });
   }
 

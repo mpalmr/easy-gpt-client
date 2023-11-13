@@ -25,6 +25,10 @@ const NavList = styled(Ul)`
   display: flex;
   align-items: center;
   justify-content: flex-end;
+
+  > li:not(:last-of-type) {
+    margin-right: .8em;
+  }
 `;
 
 interface Props {

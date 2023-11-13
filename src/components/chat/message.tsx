@@ -1,21 +1,27 @@
-import React, { FC } from 'react';
+import React, { useState, ReactNode, FC } from 'react';
 import styled from 'styled-components';
-import RoleBadge from '../role-badge';
+import { Form } from 'react-bootstrap';
 
-const MessageWrapper = styled.div`
+const Wrapper = styled.div`
   display: flex;
   align-items: center;
 `;
 
-const MessageContent = styled.p`
+const Content = styled.p`
   margin-left: .6em;
   margin-bottom: 0;
+`;
+
+const Controls = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 `;
 
 export interface ChatMessageProps {
   id: string;
   content: string;
-  role: 'SYSTEM' | 'USER' | 'ASSISTANT';
+  isResponse?: boolean;
   updatedAt?: Date;
   createdAt: Date;
 }
@@ -23,21 +29,36 @@ export interface ChatMessageProps {
 const ChatMessage: FC<ChatMessageProps> = function ChatMessage({
   id,
   content,
-  role,
+  isResponse,
   updatedAt,
   createdAt,
 }) {
+  const [isEditing, setIsEditing] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   return (
-    <MessageWrapper>
-      <RoleBadge role={role} />
-      <MessageContent>{content}</MessageContent>
+    <Wrapper>
+      <p>{isResponse ? 'Reponse' : 'Prompt'}</p>
+      {isEditing ? (
+        <Content>{children}</Content>
+      ) : (
+        <Form.Control
+          defaultValue={content}
+          disabled={isSubmitting}
+        />
+      )}
+
       {updatedAt && (
         <p>
           Edited:
           {updatedAt.toLocaleString()}
         </p>
       )}
-    </MessageWrapper>
+
+      <Controls>
+
+      </Controls>
+    </Wrapper>
   );
 };
 
