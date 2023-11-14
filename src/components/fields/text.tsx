@@ -1,7 +1,7 @@
 import React, { ChangeEvent, ChangeEventHandler, FC } from 'react';
 import { useField } from 'formik';
 import { Form, FormControlProps } from 'react-bootstrap';
-import Label from './label';
+import FormGroup from './form-group';
 
 interface Props extends FormControlProps {
   name: string;
@@ -29,9 +29,12 @@ const TextField: FC<Props> = function TextField({
   }
 
   return (
-    <Form.Group className={className}>
-      {label && <Label>{label}</Label>}
-
+    <FormGroup
+      className={className}
+      label={label}
+      touched={touched}
+      error={error}
+    >
       <Form.Control
         {...props}
         {...field}
@@ -39,11 +42,7 @@ const TextField: FC<Props> = function TextField({
         disabled={!!disabled}
         onChange={handleChange}
       />
-
-      {touched && error && (
-        <Form.Control.Feedback type="invalid">{error}</Form.Control.Feedback>
-      )}
-    </Form.Group>
+    </FormGroup>
   );
 };
 

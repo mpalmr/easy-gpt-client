@@ -7,9 +7,11 @@ import apiClient from '../../api-client';
 import useToast from '../../providers/toast';
 import { TextField } from '../../components/fields';
 import FormControls from '../../components/form-controls';
+import type {  }
 
 interface FormValues {
   label: string;
+  model: 
   temperature: string;
   systemPrompt: string;
 }
